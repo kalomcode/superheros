@@ -1,0 +1,84 @@
+{
+  "superheroes": [
+    {
+      "id": 1,
+      "name": "Superman",
+      "power": "Super fuerza",
+      "identity": "Clark Kent",
+      "city": "Metropolis",
+      "status": "activo"
+    },
+    {
+      "id": 2,
+      "name": "Batman",
+      "power": "Inteligencia",
+      "identity": "Bruce Wayne",
+      "city": "Gotham",
+      "status": "activo"
+    },
+    {
+      "id": 3,
+      "name": "Wonder Woman",
+      "power": "Fuerza y destreza",
+      "identity": "Diana Prince",
+      "city": "Themyscira",
+      "status": "activo"
+    },
+    {
+      "id": 4,
+      "name": "Spider-Man",
+      "power": "Agilidad y telarañas",
+      "identity": "Peter Parker",
+      "city": "Nueva York",
+      "status": "activo"
+    },
+    {
+      "id": 5,
+      "name": "Flash",
+      "power": "Velocidad sobrehumana",
+      "identity": "Barry Allen",
+      "city": "Central City",
+      "status": "activo"
+    },
+    {
+      "id": 6,
+      "name": "Iron Man",
+      "power": "Tecnología avanzada",
+      "identity": "Tony Stark",
+      "city": "Nueva York",
+      "status": "activo"
+    },
+    {
+      "id": 7,
+      "name": "Hulk",
+      "power": "Fuerza sobrehumana",
+      "identity": "Bruce Banner",
+      "city": "Desconocida",
+      "status": "activo"
+    },
+    {
+      "id": 8,
+      "name": "Thor",
+      "power": "Control del trueno y fuerza",
+      "identity": "Thor Odinson",
+      "city": "Asgard",
+      "status": "activo"
+    },
+    {
+      "id": 9,
+      "name": "Captain America",
+      "power": "Habilidad sobrehumana",
+      "identity": "Steve Rogers",
+      "city": "Nueva York",
+      "status": "activo"
+    },
+    {
+      "id": 10,
+      "name": "Black Widow",
+      "power": "Habilidad en combate",
+      "identity": "Natasha Romanoff",
+      "city": "Nueva York",
+      "status": "activo"
+    }
+  ]
+}
