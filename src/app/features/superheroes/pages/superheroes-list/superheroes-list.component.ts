@@ -1,10 +1,12 @@
-import { Component, Signal, signal } from '@angular/core';
+import { Component, inject, Signal, signal, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatTabsModule } from '@angular/material/tabs';
 
-import { SearchInputComponent } from '../../components/search-input/search-input.component';
+import { SearchInputComponent } from '../../../../shared/components/search-input/search-input.component';
 import { TableSuperheroesComponent } from '../../components/table-superheroes/table-superheroes.component';
 
 @Component({
@@ -14,6 +16,7 @@ import { TableSuperheroesComponent } from '../../components/table-superheroes/ta
     CommonModule,
     MatButtonModule,
     MatIconModule,
+    MatTabsModule,
     SearchInputComponent,
     TableSuperheroesComponent
   ],
@@ -21,6 +24,12 @@ import { TableSuperheroesComponent } from '../../components/table-superheroes/ta
   styleUrls: ['./superheroes-list.component.scss']
 })
 export class SuperheroesListComponent {
-  search = signal('')
+  private router = inject(Router);
+  
+  search = signal('');
 
+  goToNewSuperhero() {
+    this.router.navigate(['/superheroes/new']);
+  }
+  
 }

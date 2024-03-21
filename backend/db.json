@@ -2,12 +2,12 @@
   "superheroes": [
     {
       "id": 1,
-      "name": "Superman",
+      "name": "superman",
       "power": "Super fuerza",
       "identity": "Clark Kent",
       "city": "Metropolis",
-      "status": "activo",
-      "imgUrl": "https://img.asmedia.epimg.net/resizer/v2/SFEXHJ2VRBH7LKRM5KCNXCHSRU.jpg?auth=3648985309ecad46ae03879eec8ca8ad8d73c8eec577f14f1a5b6a629f33f5d2&width=1472&height=828&smart=true"
+      "status": "retirado",
+      "imgUrl": "https://phantom-elmundo.unidadeditorial.es/6e8c8b3a133c654746642bad3c52e5bd/resize/828/f/webp/assets/multimedia/imagenes/2022/08/03/16595421832009.jpg"
     },
     {
       "id": 2,
@@ -20,7 +20,7 @@
     },
     {
       "id": 3,
-      "name": "Wonder Woman",
+      "name": "Wonder woman",
       "power": "Fuerza y destreza",
       "identity": "Diana Prince",
       "city": "Themyscira",
@@ -89,6 +89,33 @@
       "city": "Nueva York",
       "status": "activo",
       "imgUrl": "https://media.revistagq.com/photos/605b069e5b7d28b52d842eba/4:3/w_1064,h_798,c_limit/black-widow-estreno.jpeg"
+    },
+    {
+      "id": 14,
+      "name": "fsdfs",
+      "power": "sdfsd",
+      "identity": "sdfsd",
+      "city": "sdfs",
+      "status": "activo",
+      "imgUrl": "https://salonlfc.com/wp-content/uploads/2018/01/image-not-found-1-scaled-1150x647.png"
+    },
+    {
+      "id": 15,
+      "name": "goku",
+      "power": "fuerza",
+      "identity": "goku",
+      "city": "Nepal",
+      "status": "retirado",
+      "imgUrl": "https://hips.hearstapps.com/hmg-prod/images/dragon-ball-super-goku-ultra-instinto-1549463584.jpg?crop=1xw:0.8888888888888888xh;center,top&resize=2048:*"
+    },
+    {
+      "id": 16,
+      "name": "sdfsdf",
+      "power": "sdfsdf",
+      "identity": "sdfsd",
+      "city": "sdfsd",
+      "status": "activo",
+      "imgUrl": ""
     }
   ]
 }

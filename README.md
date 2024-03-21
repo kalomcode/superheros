@@ -1,27 +1,29 @@
-# Superheroes
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.12.
+# Superheroes App
+¡Bienvenido a la aplicación Superheroes! Esta aplicación te permite gestionar un listado de superhéroes, ver sus detalles, editarlos y crear nuevos superhéroes. Está construida utilizando la última versión LTS de Angular (16.2.14) con standalone components.
 
-## Development server
+## Funcionalidades
+- Ver un listado de superhéroes
+- Ver información detallada sobre cada superhéroe
+- Editar superhéroes existentes
+- Crear nuevos superhéroes
+- Eliminar superhéroes
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Empezando
+Para empezar con la aplicación Superheroes, sigue estos pasos:
 
-## Code scaffolding
+1. Clona este repositorio en tu máquina local.
+2. Instala las dependencias ejecutando `npm install`.
+3. Inicia el servidor JSON para el backend ejecutando `npm run backend`. Esto iniciará el servidor en el puerto 3000.
+4. Inicia el servidor de desarrollo de Angular ejecutando `ng serve`. Esto iniciará el frontend en el puerto 4200.
+5. Abre tu navegador web y ve a http://localhost:4200 para acceder a la aplicación Superheroes.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Estructura de Carpetas
+La aplicación Superheroes sigue una estructura modular con tres carpetas principales:
 
-## Build
+- **core:** Contiene elementos esenciales de la aplicación, como servicios y utilidades.
+- **features:** Contiene funcionalidades específicas de la aplicación, organizadas en módulos de características.
+- **shared:** Contiene elementos compartidos entre diferentes partes de la aplicación, como pipes y componentes.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## Tests
+La aplicación Superheroes incluye pruebas para el _**SuperheroesService**_, _**ImagePipe**_, y _**SuperheroEditComponent**_ utilizando Jasmine. Estas pruebas aseguran que los componentes críticos de la aplicación funcionen según lo esperado y ayudan a mantener la calidad del código.

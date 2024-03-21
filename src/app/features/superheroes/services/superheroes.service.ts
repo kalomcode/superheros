@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { environment } from 'src/environments/environment.development';
 import { Superhero } from '../interfaces';
-import { Observable } from 'rxjs';
+import { Observable, catchError, map, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -12,9 +12,24 @@ export class SuperheroesService {
 
   private http = inject(HttpClient);
 
-  getSuperheroes(): Observable<Superhero[]> {
-    console.log('getSuperheroessvv')
-    return this.http.get<Superhero[]>(`${ this.baseUrl }/superheroes`)
+  getSuperheroes() {
+    return this.http.get<Superhero[]>(`${ this.baseUrl }/superheroes`);
+  }
+
+  getSuperheroById(id: string) {
+    return this.http.get<Superhero>(`${ this.baseUrl }/superheroes/${ id }`);
+  }
+
+  createSuperhero( superhero: Superhero ) {
+    return this.http.post<Superhero>(`${ this.baseUrl }/superheroes`, superhero );
+  }
+
+  updateSuperhero( superhero: Superhero ) {
+    return this.http.patch<Superhero>(`${ this.baseUrl }/superheroes/${ superhero.id }`, superhero );
+  }
+
+  deletesuperheroById( id: string ) {
+    return this.http.delete(`${ this.baseUrl }/superheroes/${ id }`);
   }
 
 }

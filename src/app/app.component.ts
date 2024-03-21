@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './core/layout/navbar/navbar.component';
+import { SpinnerPageComponent } from './core/components/spinner-page/spinner-page.component';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +10,8 @@ import { NavbarComponent } from './core/layout/navbar/navbar.component';
   imports: [
     CommonModule, 
     RouterOutlet,
-    NavbarComponent
+    NavbarComponent,
+    SpinnerPageComponent
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']

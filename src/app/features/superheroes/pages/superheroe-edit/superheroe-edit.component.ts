@@ -1,144 +1,138 @@
-import { Component } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
-
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute, Router } from '@angular/router';
+
 import { SuperheroesService } from '../../services/superheroes.service';
-import { switchMap } from 'rxjs';
-import { Superhero } from '../../interfaces';
+import { SuperheroStatus } from '../../interfaces';
+import { ImagePipe } from 'src/app/shared/pipes/image.pipe';
 
 @Component({
   selector: 'app-superheroe-edit',
   standalone: true,
   imports: [
     CommonModule,
+    ImagePipe,
+    MatButtonModule,
     MatCardModule,
+    MatDialogModule,
     MatDividerModule,
     MatFormFieldModule,
-    ReactiveFormsModule,
     MatIconModule,
+    MatInputModule,
+    MatSelectModule,
     MatSnackBarModule,
-    MatDialogModule,
-    MatInputModule
+    ReactiveFormsModule,
   ],
   templateUrl: './superheroe-edit.component.html',
   styleUrls: ['./superheroe-edit.component.scss']
 })
 export class SuperheroeEditComponent {
+
+  private fb = inject(FormBuilder);
+  private superheroesSvc = inject(SuperheroesService);
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+  private snackbar = inject(MatSnackBar);
   
   superheroForm: FormGroup = this.fb.group({
-    id: [''],
-    name: ['', { nonNullable: true }],
-    power: [''],
-    identity: [''],
-    city: [''],
-    status: [''],
+    id: ['',[]],
+    name: ['', [Validators.required]],
+    power: ['', [Validators.required]],
+    identity: ['', [Validators.required]],
+    city: ['', [Validators.required]],
+    status: [SuperheroStatus.active, [Validators.required]],
     imgUrl: [''],
   });
 
-  publishers = [
-    { id: 'DC Comics', desc: 'DC - Comics' },
-    { id: 'Marvel Comics', desc: 'Marvel - Comics' },
-  ];
+  readonly superheroStatus = [
+    { val: SuperheroStatus.active }, 
+    { val: SuperheroStatus.retired }
+  ]
 
+  isEdit = signal(false);
 
-  constructor(
-    private fb: FormBuilder,
-    private superheroesSvc: SuperheroesService,
-    private activatedRoute: ActivatedRoute,
-    private router: Router,
-    private snackbar: MatSnackBar,
-    private dialog: MatDialog,
-  ) {}
-
-  get currentHero(): Superhero {
-    const superhero = this.superheroForm.value as Superhero;
-    return superhero;
+  ngOnInit() {
+    if ( !this.router.url.includes('edit') ) return;
+    const id = this.route.snapshot.paramMap.get('id');
+    this.isEdit.set(true);
+    if ( !id ) {
+      this.router.navigate(['/superheroes/list']);
+    } else {
+      this.getSuperheroById( id );
+    }   
   }
 
-  ngOnInit(): void {
-
-    if ( !this.router.url.includes('edit') ) return;
-
-    // this.activatedRoute.params
-    //   .pipe(
-    //     switchMap( ({ id }) => this.superheroesSvc.getHeroById( id ) ),
-    //   ).subscribe( hero => {
-
-    //     if ( !hero ) {
-    //       return this.router.navigateByUrl('/');
-    //     }
-
-    //     this.superheroForm.reset( hero );
-    //     return;
-    //   });
-
+  getSuperheroById( id: string ) {
+    this.superheroesSvc.getSuperheroById( id ).subscribe({
+      next: (superhero) => {
+        if ( !superhero ) {
+          this.router.navigate(['/superheroes/list']);
+        } else {
+          this.superheroForm.reset( superhero );
+        }
+      },
+      error: () => {
+        this.showrSnackbarError('Se ha producido un error al intentar obtener le superhéroe');
+        this.router.navigate(['/superheroes/list']);
+      }
+    });
   }
 
   onSubmit():void {
 
-    // if ( this.superheroForm.invalid ) return;
+    this.superheroForm.markAllAsTouched();
+    if ( this.superheroForm.invalid ) return;
 
-    // if ( this.currentHero.id ) {
-    //   this.superheroesSvc.updateHero( this.currentHero )
-    //     .subscribe( hero => {
-    //       this.showSnackbar(`${ hero.superhero } updated!`);
-    //     });
-
-    //   return;
-    // }
-
-    // this.superheroesSvc.addHero( this.currentHero )
-    //   .subscribe( hero => {
-    //     // TODO: mostrar snackbar, y navegar a /heroes/edit/ hero.id
-    //     this.router.navigate(['/heroes/edit', hero.id ]);
-    //     this.showSnackbar(`${ hero.superhero } created!`);
-    //   });
-  }
-
-  onDeleteHero() {
-    // if ( !this.currentHero.id ) throw Error('Hero id is required');
-
-    // const dialogRef = this.dialog.open( ConfirmDialogComponent, {
-    //   data: this.superheroForm.value
-    // });
-
-    // dialogRef.afterClosed()
-    //   .pipe(
-    //     filter( (result: boolean) => result ),
-    //     switchMap( () => this.superheroesSvc.deleteHeroById( this.currentHero.id )),
-    //     filter( (wasDeleted: boolean) => wasDeleted ),
-    //   )
-    //   .subscribe(() => {
-    //     this.router.navigate(['/heroes']);
-    //   });
-
-    // dialogRef.afterClosed().subscribe(result => {
-    //   if ( !result ) return;
-
-    //   this.superheroesSvc.deleteHeroById( this.currentHero.id )
-    //   .subscribe( wasDeleted => {
-    //     if ( wasDeleted )
-    //       this.router.navigate(['/heroes']);
-    //   })
-    // });
+    if ( this.isEdit() ) {
+      this.superheroesSvc.updateSuperhero( this.superheroForm.value )
+      .subscribe({
+        next: (superhero) => {
+        this.showSnackbarSuccess(`${ superhero.name } actualizado!`);
+        this.router.navigate(['/superheroes/list']);
+        },
+        error: () => {
+          this.showrSnackbarError('Error al intentar actualizar superhéroe');
+        }
+      });
+    } else {
+      this.superheroesSvc.createSuperhero( this.superheroForm.value )
+        .subscribe({
+          next: (superhero) => {
+            this.showSnackbarSuccess(`${ superhero.name } creado!`);
+            this.router.navigate(['/superheroes/list']);
+          },
+          error: () => {
+            this.showrSnackbarError('Error al intentar crear superhéroe');
+          }
+        });
+    }
 
   }
 
-
-  showSnackbar( message: string ):void {
-    this.snackbar.open( message, 'done', {
+  showSnackbarSuccess( message: string ):void {
+    this.snackbar.open( message, 'OK', {
       duration: 2500,
+      panelClass: ['success-snackbar']
     })
   }
+
+  showrSnackbarError( message: string ):void {
+    this.snackbar.open( message, 'OK', {
+      duration: 2500,
+      panelClass: ['error-snackbar']
+    })
+  }
+
 }

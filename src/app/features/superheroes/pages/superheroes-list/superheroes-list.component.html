@@ -6,13 +6,19 @@
     </app-search-input>
   </div>
   <div class="col-6 d-flex justify-content-end align-items-center">
-    <button mat-raised-button color="primary">
+    <button 
+      mat-raised-button 
+      color="primary"
+      (click)="goToNewSuperhero()"
+      >
       <mat-icon>add</mat-icon>
       Crear Superheroe
     </button>
   </div>
 </div>
+
 <app-table-superheroes
   [search]="search()"
 >
 </app-table-superheroes>
+

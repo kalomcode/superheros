@@ -27,6 +27,5 @@ export class NavbarComponent {
   public menuItems = [
     { label: 'Listado', icon: 'label', url: 'superheroes/list' },
     { label: 'Añadir', icon: 'add', url: 'superheroes/new' },
-    { label: 'Buscar', icon: 'search', url: 'superheroes/list' },
   ]
 }

@@ -1,0 +1,11 @@
+
+<!-- Metodo antiguo usando Objservables -->
+<!-- <div class="spinner-overlay" *ngIf="isLoading$ | async">
+  <mat-spinner class="spinner"></mat-spinner>
+</div> -->
+
+<!-- Metodo nuevo usando Signals -->
+<div class="spinner-overlay" *ngIf="isLoading()">
+  <mat-spinner class="spinner"></mat-spinner>
+</div>
+
