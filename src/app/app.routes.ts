@@ -2,8 +2,8 @@ import { Routes } from '@angular/router';
 
 export const routes: Routes = [
   {
-    path: 'superheroes',
-    loadChildren: () => import('./features/superheroes/superheroes.routes').then(m => m.routes)
+    path: 'superheros',
+    loadChildren: () => import('./features/superheros/superheros.routes').then(m => m.routes)
   },
   {
     path: '404',
@@ -11,7 +11,7 @@ export const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'superheroes',
+    redirectTo: 'superheros',
     pathMatch: 'full'
   },
   {

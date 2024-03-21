@@ -7,29 +7,29 @@ import { Observable, catchError, map, of } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class SuperheroesService {
+export class superherosService {
   private readonly baseUrl: string = environment.baseUrl;
 
   private http = inject(HttpClient);
 
-  getSuperheroes() {
-    return this.http.get<Superhero[]>(`${ this.baseUrl }/superheroes`);
+  getsuperheros() {
+    return this.http.get<Superhero[]>(`${ this.baseUrl }/superheros`);
   }
 
   getSuperheroById(id: string) {
-    return this.http.get<Superhero>(`${ this.baseUrl }/superheroes/${ id }`);
+    return this.http.get<Superhero>(`${ this.baseUrl }/superheros/${ id }`);
   }
 
   createSuperhero( superhero: Superhero ) {
-    return this.http.post<Superhero>(`${ this.baseUrl }/superheroes`, superhero );
+    return this.http.post<Superhero>(`${ this.baseUrl }/superheros`, superhero );
   }
 
   updateSuperhero( superhero: Superhero ) {
-    return this.http.patch<Superhero>(`${ this.baseUrl }/superheroes/${ superhero.id }`, superhero );
+    return this.http.patch<Superhero>(`${ this.baseUrl }/superheros/${ superhero.id }`, superhero );
   }
 
   deletesuperheroById( id: string ) {
-    return this.http.delete(`${ this.baseUrl }/superheroes/${ id }`);
+    return this.http.delete(`${ this.baseUrl }/superheros/${ id }`);
   }
 
 }

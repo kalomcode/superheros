@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
-import { SuperheroesService } from './superheroes.service';
+import { superherosService } from './superheros.service';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { Superhero } from '../interfaces';
 import { environment } from 'src/environments/environment.development';
 
-const listSuperheroesMock: Superhero[] = [
+const listsuperherosMock: Superhero[] = [
   {
     "id": 1,
     "name": "Superman",
@@ -36,9 +36,9 @@ const listSuperheroesMock: Superhero[] = [
   }
 ]
 
-describe('SuperheroesService', () => {
+describe('superherosService', () => {
 
-  let service: SuperheroesService;
+  let service: superherosService;
   let httpMock: HttpTestingController;
 
   beforeEach(() => {
@@ -47,15 +47,15 @@ describe('SuperheroesService', () => {
         HttpClientTestingModule
       ],
       providers: [
-        SuperheroesService
+        superherosService
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
     });
-    service = TestBed.inject(SuperheroesService);
+    service = TestBed.inject(superherosService);
   });
 
   beforeEach(() => {
-    service = TestBed.inject(SuperheroesService);
+    service = TestBed.inject(superherosService);
     httpMock = TestBed.inject(HttpTestingController);
   })
 
@@ -68,13 +68,13 @@ describe('SuperheroesService', () => {
   });
 
 
-  it('getSuperheroes return a list of superheroes and does a get method', () => {
-    service.getSuperheroes().subscribe((resp: Superhero[]) => {
-      expect(resp).toEqual(listSuperheroesMock);
+  it('getsuperheros return a list of superheros and does a get method', () => {
+    service.getsuperheros().subscribe((resp: Superhero[]) => {
+      expect(resp).toEqual(listsuperherosMock);
     });
-    const req = httpMock.expectOne(`${ environment.baseUrl }/superheroes`);
+    const req = httpMock.expectOne(`${ environment.baseUrl }/superheros`);
     expect(req.request.method).toBe('GET');
-    req.flush(listSuperheroesMock);
+    req.flush(listsuperherosMock);
   });
 
   it('getSuperheroById return a superhero with id 3 and does a get method', () => {
@@ -84,13 +84,13 @@ describe('SuperheroesService', () => {
       expect(resp.name).toEqual('Wonder Woman');
     });
 
-    const req = httpMock.expectOne(`${ environment.baseUrl }/superheroes/${ id }`);
+    const req = httpMock.expectOne(`${ environment.baseUrl }/superheros/${ id }`);
     expect(req.request.method).toBe('GET');
-    req.flush(listSuperheroesMock.find(superhero => superhero.id === 3) || {});
+    req.flush(listsuperherosMock.find(superhero => superhero.id === 3) || {});
   })
 
   it('createSuperhero return a superhero created an does a post method', () => {
-    const newSuperheroe: Superhero = {
+    const newsuperhero: Superhero = {
       name: 'SpiderMan',
       power: 'Fuerza y destreza',
       identity: 'Peter',
@@ -98,19 +98,19 @@ describe('SuperheroesService', () => {
       status: 'activo',
       imgUrl: 'https://i.blogs.es/cd20cf/1366_2000-9-/1366_2000.jpeg'
     }
-    service.createSuperhero(newSuperheroe).subscribe((resp: Superhero) => {
+    service.createSuperhero(newsuperhero).subscribe((resp: Superhero) => {
       expect(resp.id).toEqual(4);
       expect(resp.name).toEqual('SpiderMan');
     });
 
-    const req = httpMock.expectOne(`${ environment.baseUrl }/superheroes`);
+    const req = httpMock.expectOne(`${ environment.baseUrl }/superheros`);
     expect(req.request.method).toBe('POST');
-    newSuperheroe.id = 4
-    req.flush(newSuperheroe);
+    newsuperhero.id = 4
+    req.flush(newsuperhero);
   })
 
   it('updateSuperhero return a superhero id 3 updated an does a patch method', () => {
-    const updatedSuperheroe: Superhero = {
+    const updatedsuperhero: Superhero = {
       id: 3,
       name: 'SpiderMan',
       power: 'Fuerza y destreza',
@@ -119,14 +119,14 @@ describe('SuperheroesService', () => {
       status: 'activo',
       imgUrl: 'https://i.blogs.es/cd20cf/1366_2000-9-/1366_2000.jpeg'
     }
-    service.updateSuperhero(updatedSuperheroe).subscribe((resp: Superhero) => {
+    service.updateSuperhero(updatedsuperhero).subscribe((resp: Superhero) => {
       expect(resp.id).toEqual(3);
       expect(resp.name).toEqual('SpiderMan');
     });
 
-    const req = httpMock.expectOne(`${ environment.baseUrl }/superheroes/${ updatedSuperheroe.id }`);
+    const req = httpMock.expectOne(`${ environment.baseUrl }/superheros/${ updatedsuperhero.id }`);
     expect(req.request.method).toBe('PATCH');
-    req.flush(updatedSuperheroe);
+    req.flush(updatedsuperhero);
   })
 
   it('deletesuperheroById return a superhero id 3 updated an does a delete method', () => {
@@ -135,7 +135,7 @@ describe('SuperheroesService', () => {
       expect(resp).toBeTruthy();
     });
 
-    const req = httpMock.expectOne(`${ environment.baseUrl }/superheroes/${ id }`);
+    const req = httpMock.expectOne(`${ environment.baseUrl }/superheros/${ id }`);
     expect(req.request.method).toBe('DELETE');
     req.flush(true);
   })
@@ -153,7 +153,7 @@ describe('SuperheroesService', () => {
       }
     });
 
-    const req = httpMock.expectOne(`${ environment.baseUrl }/superheroes/${ id }`);
+    const req = httpMock.expectOne(`${ environment.baseUrl }/superheros/${ id }`);
     expect(req.request.method).toBe('GET');
     req.error(new ProgressEvent('Error superhero no encontrado'))
   });
@@ -171,7 +171,7 @@ describe('SuperheroesService', () => {
       }
     });
 
-    const req = httpMock.expectOne(`${ environment.baseUrl }/superheroes/${ id }`);
+    const req = httpMock.expectOne(`${ environment.baseUrl }/superheros/${ id }`);
     expect(req.request.method).toBe('DELETE');
     req.error(new ProgressEvent('Error superhero no encontrado'))
   });

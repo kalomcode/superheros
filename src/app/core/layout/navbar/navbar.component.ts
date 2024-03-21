@@ -25,7 +25,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 })
 export class NavbarComponent {
   public menuItems = [
-    { label: 'Listado', icon: 'label', url: 'superheroes/list' },
-    { label: 'Añadir', icon: 'add', url: 'superheroes/new' },
+    { label: 'Listado', icon: 'label', url: 'superheros/list' },
+    { label: 'Añadir', icon: 'add', url: 'superheros/new' },
   ]
 }

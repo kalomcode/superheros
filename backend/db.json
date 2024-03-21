@@ -1,5 +1,5 @@
 {
-  "superheroes": [
+  "superheros": [
     {
       "id": 1,
       "name": "superman",
@@ -116,6 +116,15 @@
       "city": "sdfsd",
       "status": "activo",
       "imgUrl": ""
+    },
+    {
+      "id": 17,
+      "name": "sdfsdf",
+      "power": "adfe",
+      "identity": "asdfs",
+      "city": "xcvxcvx",
+      "status": "activo",
+      "imgUrl": "asdfsdffsdfsd"
     }
   ]
 }

@@ -14,12 +14,12 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { SuperheroesService } from '../../services/superheroes.service';
+import { superherosService } from '../../services/superheros.service';
 import { SuperheroStatus } from '../../interfaces';
 import { ImagePipe } from 'src/app/shared/pipes/image.pipe';
 
 @Component({
-  selector: 'app-superheroe-edit',
+  selector: 'app-superhero-edit',
   standalone: true,
   imports: [
     CommonModule,
@@ -35,13 +35,13 @@ import { ImagePipe } from 'src/app/shared/pipes/image.pipe';
     MatSnackBarModule,
     ReactiveFormsModule,
   ],
-  templateUrl: './superheroe-edit.component.html',
-  styleUrls: ['./superheroe-edit.component.scss']
+  templateUrl: './superhero-edit.component.html',
+  styleUrls: ['./superhero-edit.component.scss']
 })
-export class SuperheroeEditComponent {
+export class superheroEditComponent {
 
   private fb = inject(FormBuilder);
-  private superheroesSvc = inject(SuperheroesService);
+  private superherosSvc = inject(superherosService);
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private snackbar = inject(MatSnackBar);
@@ -68,24 +68,24 @@ export class SuperheroeEditComponent {
     const id = this.route.snapshot.paramMap.get('id');
     this.isEdit.set(true);
     if ( !id ) {
-      this.router.navigate(['/superheroes/list']);
+      this.router.navigate(['/superheros/list']);
     } else {
       this.getSuperheroById( id );
     }   
   }
 
   getSuperheroById( id: string ) {
-    this.superheroesSvc.getSuperheroById( id ).subscribe({
+    this.superherosSvc.getSuperheroById( id ).subscribe({
       next: (superhero) => {
         if ( !superhero ) {
-          this.router.navigate(['/superheroes/list']);
+          this.router.navigate(['/superheros/list']);
         } else {
           this.superheroForm.reset( superhero );
         }
       },
       error: () => {
         this.showrSnackbarError('Se ha producido un error al intentar obtener le superhéroe');
-        this.router.navigate(['/superheroes/list']);
+        this.router.navigate(['/superheros/list']);
       }
     });
   }
@@ -93,25 +93,28 @@ export class SuperheroeEditComponent {
   onSubmit():void {
 
     this.superheroForm.markAllAsTouched();
-    if ( this.superheroForm.invalid ) return;
+    if ( this.superheroForm.invalid ) {
+      this.showrSnackbarError('Formulario inválido', 1000);
+      return;
+    };
 
     if ( this.isEdit() ) {
-      this.superheroesSvc.updateSuperhero( this.superheroForm.value )
+      this.superherosSvc.updateSuperhero( this.superheroForm.value )
       .subscribe({
         next: (superhero) => {
         this.showSnackbarSuccess(`${ superhero.name } actualizado!`);
-        this.router.navigate(['/superheroes/list']);
+        this.router.navigate(['/superheros/list']);
         },
         error: () => {
           this.showrSnackbarError('Error al intentar actualizar superhéroe');
         }
       });
     } else {
-      this.superheroesSvc.createSuperhero( this.superheroForm.value )
+      this.superherosSvc.createSuperhero( this.superheroForm.value )
         .subscribe({
           next: (superhero) => {
             this.showSnackbarSuccess(`${ superhero.name } creado!`);
-            this.router.navigate(['/superheroes/list']);
+            this.router.navigate(['/superheros/list']);
           },
           error: () => {
             this.showrSnackbarError('Error al intentar crear superhéroe');
@@ -121,16 +124,16 @@ export class SuperheroeEditComponent {
 
   }
 
-  showSnackbarSuccess( message: string ):void {
+  showSnackbarSuccess( message: string , duration?: number):void {
     this.snackbar.open( message, 'OK', {
-      duration: 2500,
+      duration: duration || 2500,
       panelClass: ['success-snackbar']
     })
   }
 
-  showrSnackbarError( message: string ):void {
+  showrSnackbarError( message: string , duration?: number):void {
     this.snackbar.open( message, 'OK', {
-      duration: 2500,
+      duration: duration || 2500,
       panelClass: ['error-snackbar']
     })
   }

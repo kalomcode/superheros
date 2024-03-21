@@ -17,5 +17,5 @@ import { SpinnerPageComponent } from './core/components/spinner-page/spinner-pag
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'Superheroes';
+  title = 'superheros';
 }

@@ -15,13 +15,13 @@ import { MatSort } from '@angular/material/sort';
 import { filter, switchMap } from 'rxjs';
 
 import { Superhero } from '../../interfaces/superhero.interface';
-import { SuperheroesService } from '../../services/superheroes.service';
+import { superherosService } from '../../services/superheros.service';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 import { DialogSuperheroDetailComponent } from '../dialog-superhero-detail/dialog-superhero-detail.component';
 import { ImagePipe } from 'src/app/shared/pipes/image.pipe';
 
 @Component({
-  selector: 'app-table-superheroes',
+  selector: 'app-table-superheros',
   standalone: true,
   imports: [
     CommonModule,
@@ -35,13 +35,13 @@ import { ImagePipe } from 'src/app/shared/pipes/image.pipe';
     MatSnackBarModule,
     MatTableModule,
   ],
-  templateUrl: './table-superheroes.component.html',
-  styleUrls: ['./table-superheroes.component.scss']
+  templateUrl: './table-superheros.component.html',
+  styleUrls: ['./table-superheros.component.scss']
 })
-export class TableSuperheroesComponent implements OnInit {
+export class TablesuperherosComponent implements OnInit {
   
   private router = inject(Router);
-  private superheroesSvc = inject(SuperheroesService);
+  private superherosSvc = inject(superherosService);
   private dialog = inject(MatDialog);
   private snackbar = inject(MatSnackBar);
 
@@ -55,7 +55,7 @@ export class TableSuperheroesComponent implements OnInit {
   
   ngOnInit() {
     this.configFilter();
-    this.getSuperheroes();
+    this.getsuperheros();
   }
 
   ngAfterViewInit() {
@@ -75,10 +75,10 @@ export class TableSuperheroesComponent implements OnInit {
     };
   }
 
-  getSuperheroes() {
-    this.superheroesSvc.getSuperheroes().subscribe({
-      next: (superheroes) => {
-        this.dataSource.data = superheroes
+  getsuperheros() {
+    this.superherosSvc.getsuperheros().subscribe({
+      next: (superheros) => {
+        this.dataSource.data = superheros
         this.dataSource.paginator?.firstPage();
       },
       error: () => {
@@ -96,7 +96,7 @@ export class TableSuperheroesComponent implements OnInit {
     dialogRef.afterClosed()
       .pipe(
         filter( (result: boolean) => result ),
-        switchMap( () => this.superheroesSvc.deletesuperheroById( superhero.id!.toString() )),
+        switchMap( () => this.superherosSvc.deletesuperheroById( superhero.id!.toString() )),
       )
       .subscribe({
         next: () => {
@@ -131,7 +131,7 @@ export class TableSuperheroesComponent implements OnInit {
   }
 
   goToEditSuperhero(id: string) {
-    this.router.navigate(['/superheroes/edit', id]);
+    this.router.navigate(['/superheros/edit', id]);
   }
 
 }

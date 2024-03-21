@@ -7,10 +7,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
 
 import { SearchInputComponent } from '../../../../shared/components/search-input/search-input.component';
-import { TableSuperheroesComponent } from '../../components/table-superheroes/table-superheroes.component';
+import { TablesuperherosComponent } from '../../components/table-superheros/table-superheros.component';
 
 @Component({
-  selector: 'app-superheroes-list',
+  selector: 'app-superheros-list',
   standalone: true,
   imports: [
     CommonModule,
@@ -18,18 +18,18 @@ import { TableSuperheroesComponent } from '../../components/table-superheroes/ta
     MatIconModule,
     MatTabsModule,
     SearchInputComponent,
-    TableSuperheroesComponent
+    TablesuperherosComponent
   ],
-  templateUrl: './superheroes-list.component.html',
-  styleUrls: ['./superheroes-list.component.scss']
+  templateUrl: './superheros-list.component.html',
+  styleUrls: ['./superheros-list.component.scss']
 })
-export class SuperheroesListComponent {
+export class superherosListComponent {
   private router = inject(Router);
   
   search = signal('');
 
   goToNewSuperhero() {
-    this.router.navigate(['/superheroes/new']);
+    this.router.navigate(['/superheros/new']);
   }
   
 }
