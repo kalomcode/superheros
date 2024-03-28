@@ -4,7 +4,7 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { superherosService } from './superheros.service';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { Superhero } from '../interfaces';
-import { environment } from 'src/environments/environment.development';
+import { environment } from 'src/environments/environment';
 
 const listsuperherosMock: Superhero[] = [
   {
