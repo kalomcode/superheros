@@ -1,5 +1,4 @@
 import { Component, Input, OnInit, SimpleChanges, ViewChild, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 
 import { MatButtonModule } from '@angular/material/button';
@@ -19,13 +18,15 @@ import { superherosService } from '../../services/superheros.service';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 import { DialogSuperheroDetailComponent } from '../dialog-superhero-detail/dialog-superhero-detail.component';
 import { ImagePipe } from 'src/app/shared/pipes/image.pipe';
+import { AsyncPipe, TitleCasePipe } from '@angular/common';
 
 @Component({
   selector: 'app-table-superheros',
   standalone: true,
   imports: [
-    CommonModule,
     ImagePipe,
+    AsyncPipe,
+    TitleCasePipe,
     MatButtonModule,
     MatCardModule,
     MatDialogModule,

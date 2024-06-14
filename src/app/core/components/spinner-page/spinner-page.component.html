@@ -5,9 +5,7 @@
 </div> -->
 
 <!-- Metodo nuevo usando Signals -->
-@if (isLoading()) {
-  <div class="spinner-overlay">
-    <mat-spinner class="spinner"></mat-spinner>
-  </div>
-}
+<div *ngIf="isLoading()" class="spinner-overlay">
+  <mat-spinner class="spinner"></mat-spinner>
+</div>
 

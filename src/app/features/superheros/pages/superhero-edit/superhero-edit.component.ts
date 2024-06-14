@@ -1,5 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { AsyncPipe, NgFor, NgIf, UpperCasePipe } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -22,7 +22,10 @@ import { ImagePipe } from 'src/app/shared/pipes/image.pipe';
   selector: 'app-superhero-edit',
   standalone: true,
   imports: [
-    CommonModule,
+    NgFor,
+    NgIf,
+    UpperCasePipe,
+    AsyncPipe,
     ImagePipe,
     MatButtonModule,
     MatCardModule,

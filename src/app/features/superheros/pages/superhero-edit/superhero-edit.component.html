@@ -1,9 +1,7 @@
 <h1>
   {{ isEdit() ? 'Editar' : 'Crear' }}
   Superhéroe
-  @if (isEdit()) {
-    <span>{{ superheroForm.get('name')?.value | uppercase }}</span>
-  }
+  <span *ngIf="isEdit()">{{ superheroForm.get('name')?.value | uppercase }}</span>
 </h1>
 
 <mat-divider class="mb-2"></mat-divider>
@@ -57,10 +55,8 @@
             <mat-label>Estado</mat-label>
             <mat-select
               formControlName="status"
-              >
-              @for (status of superheroStatus; track status) {
-                <mat-option [value]="status.val">{{status.val}}</mat-option>
-              }
+              >      
+              <mat-option *ngFor="let status of superheroStatus" [value]="status.val">{{status.val}}</mat-option>
             </mat-select>
           </mat-form-field>
 
