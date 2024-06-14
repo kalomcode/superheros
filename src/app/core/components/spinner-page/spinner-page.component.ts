@@ -1,17 +1,15 @@
 import { Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
-
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-
 import { SpinnerPageService } from '../../services/spinner-page.service';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-spinner-page',
   standalone: true,
   imports: [
-    CommonModule,
-    MatProgressSpinnerModule
-  ],
+    MatProgressSpinnerModule,
+    NgIf
+],
   templateUrl: './spinner-page.component.html',
   styleUrls: ['./spinner-page.component.scss']
 })

@@ -1,5 +1,4 @@
 import { Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
@@ -9,13 +8,16 @@ import { MatIconModule } from '@angular/material/icon';
 import { Superhero } from '../../interfaces';
 
 import { ImagePipe } from 'src/app/shared/pipes/image.pipe';
+import { AsyncPipe, TitleCasePipe, UpperCasePipe } from '@angular/common';
 
 @Component({
   selector: 'app-dialog-superhero-detail',
   standalone: true,
   imports: [
-    CommonModule,
     ImagePipe,
+    TitleCasePipe,
+    AsyncPipe,
+    UpperCasePipe,
     MatButtonModule,
     MatCardModule,
     MatDialogModule,

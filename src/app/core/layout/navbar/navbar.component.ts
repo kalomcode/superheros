@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgFor, NgStyle } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 import { MatButtonModule } from '@angular/material/button';
@@ -12,7 +12,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
   selector: 'app-navbar',
   standalone: true,
   imports: [
-    CommonModule,
+    NgFor,
+    NgStyle,
     MatButtonModule,
     MatIconModule,
     MatListModule,

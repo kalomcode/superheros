@@ -20,7 +20,7 @@
               matInput
               type="text"
               formControlName="name"
-            />
+              />
           </mat-form-field>
 
           <mat-form-field class="col-12 col-md-6 px-1">
@@ -29,7 +29,7 @@
               matInput
               type="text"
               formControlName="power"
-            />
+              />
           </mat-form-field>
 
 
@@ -39,7 +39,7 @@
               matInput
               type="text"
               formControlName="identity"
-            />
+              />
           </mat-form-field>
 
           <mat-form-field class="col-12 col-md-6 px-1">
@@ -48,14 +48,14 @@
               matInput
               type="text"
               formControlName="city"
-            />
+              />
           </mat-form-field>
 
           <mat-form-field class="col-12 col-md-6 px-1">
             <mat-label>Estado</mat-label>
-            <mat-select 
+            <mat-select
               formControlName="status"
-            >
+              >      
               <mat-option *ngFor="let status of superheroStatus" [value]="status.val">{{status.val}}</mat-option>
             </mat-select>
           </mat-form-field>
@@ -66,7 +66,7 @@
               matInput
               type="text"
               formControlName="imgUrl"
-            />
+              />
           </mat-form-field>
 
 
@@ -78,7 +78,7 @@
             mat-flat-button
             color="primary"
             (click)="onSubmit()"
-          >
+            >
             <mat-icon>save</mat-icon>
             Guardar
           </button>
