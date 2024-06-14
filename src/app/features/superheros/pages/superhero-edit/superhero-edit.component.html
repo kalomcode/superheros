@@ -1,7 +1,9 @@
 <h1>
   {{ isEdit() ? 'Editar' : 'Crear' }}
   Superhéroe
-  <span *ngIf="isEdit()">{{ superheroForm.get('name')?.value | uppercase }}</span>
+  @if (isEdit()) {
+    <span>{{ superheroForm.get('name')?.value | uppercase }}</span>
+  }
 </h1>
 
 <mat-divider class="mb-2"></mat-divider>
@@ -20,7 +22,7 @@
               matInput
               type="text"
               formControlName="name"
-            />
+              />
           </mat-form-field>
 
           <mat-form-field class="col-12 col-md-6 px-1">
@@ -29,7 +31,7 @@
               matInput
               type="text"
               formControlName="power"
-            />
+              />
           </mat-form-field>
 
 
@@ -39,7 +41,7 @@
               matInput
               type="text"
               formControlName="identity"
-            />
+              />
           </mat-form-field>
 
           <mat-form-field class="col-12 col-md-6 px-1">
@@ -48,15 +50,17 @@
               matInput
               type="text"
               formControlName="city"
-            />
+              />
           </mat-form-field>
 
           <mat-form-field class="col-12 col-md-6 px-1">
             <mat-label>Estado</mat-label>
-            <mat-select 
+            <mat-select
               formControlName="status"
-            >
-              <mat-option *ngFor="let status of superheroStatus" [value]="status.val">{{status.val}}</mat-option>
+              >
+              @for (status of superheroStatus; track status) {
+                <mat-option [value]="status.val">{{status.val}}</mat-option>
+              }
             </mat-select>
           </mat-form-field>
 
@@ -66,7 +70,7 @@
               matInput
               type="text"
               formControlName="imgUrl"
-            />
+              />
           </mat-form-field>
 
 
@@ -78,7 +82,7 @@
             mat-flat-button
             color="primary"
             (click)="onSubmit()"
-          >
+            >
             <mat-icon>save</mat-icon>
             Guardar
           </button>

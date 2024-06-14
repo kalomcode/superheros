@@ -1,5 +1,5 @@
 import { Component, inject, Signal, signal, ViewChild } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { Router } from '@angular/router';
 
 import { MatButtonModule } from '@angular/material/button';
@@ -13,13 +13,12 @@ import { TablesuperherosComponent } from '../../components/table-superheros/tabl
   selector: 'app-superheros-list',
   standalone: true,
   imports: [
-    CommonModule,
     MatButtonModule,
     MatIconModule,
     MatTabsModule,
     SearchInputComponent,
     TablesuperherosComponent
-  ],
+],
   templateUrl: './superheros-list.component.html',
   styleUrls: ['./superheros-list.component.scss']
 })

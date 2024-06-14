@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 import { Subject, debounceTime, takeUntil } from 'rxjs';
@@ -10,10 +10,9 @@ import { MatInputModule } from '@angular/material/input';
   selector: 'app-search-input',
   standalone: true,
   imports: [
-    CommonModule,
     ReactiveFormsModule,
-    MatInputModule,
-  ],
+    MatInputModule
+],
   templateUrl: './search-input.component.html',
   styleUrls: ['./search-input.component.scss']
 })
