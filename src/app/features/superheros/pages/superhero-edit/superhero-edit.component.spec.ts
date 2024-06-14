@@ -1,12 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { superheroEditComponent } from './superhero-edit.component';
+import { SuperheroEditComponent } from './superhero-edit.component';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { provideHttpClient } from '@angular/common/http';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ActivatedRoute, Router, provideRouter } from '@angular/router';
 import { provideAnimations } from '@angular/platform-browser/animations';
-import { superherosService } from '../../services/superheros.service';
+import { SuperherosService } from '../../services/superheros.service';
 import { Superhero } from '../../interfaces';
 import { of, throwError } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -31,29 +31,29 @@ class MatSnackBarMock {
   }
 }
 
-describe('superheroEditComponent', () => {
-  let component: superheroEditComponent;
-  let fixture: ComponentFixture<superheroEditComponent>;
+describe('SuperheroEditComponent', () => {
+  let component: SuperheroEditComponent;
+  let fixture: ComponentFixture<SuperheroEditComponent>;
   let router: Router;
   let route: ActivatedRoute;
-  let superherosSvc: superherosService;
+  let superherosSvc: SuperherosService;
   let snackbarMock: MatSnackBarMock;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [superheroEditComponent],
+      imports: [SuperheroEditComponent],
       providers: [
         provideHttpClient(),
         provideHttpClientTesting(),
         provideRouter([]),
         provideAnimations(),
-        superherosService,
+        SuperherosService,
         { provide: MatSnackBar, useClass: MatSnackBarMock }
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(superheroEditComponent);
+    fixture = TestBed.createComponent(SuperheroEditComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -61,7 +61,7 @@ describe('superheroEditComponent', () => {
   beforeEach(() => {
     router = TestBed.inject(Router);
     route = TestBed.inject(ActivatedRoute);
-    superherosSvc = TestBed.inject(superherosService);
+    superherosSvc = TestBed.inject(SuperherosService);
     snackbarMock = TestBed.inject(MatSnackBar);
   });
 
@@ -147,9 +147,10 @@ describe('superheroEditComponent', () => {
 
   it('onSubmit should call onSubmit() when the button is clicked', () => {
     const onSubmitSpy = spyOn(component, 'onSubmit');
-    const button = fixture.debugElement.query(By.css('button'));
+    const buttonDe = fixture.debugElement.query(By.css('button'));
+    const buttonEl = buttonDe.nativeElement;
 
-    button.nativeElement.click();
+    buttonEl.click();
 
     expect(onSubmitSpy).toHaveBeenCalled();
   });
@@ -195,5 +196,26 @@ describe('superheroEditComponent', () => {
     expect(superherosSvcCreateSpy).not.toHaveBeenCalled();
     expect( showrSnackbarErrorSpy ).toHaveBeenCalledWith('Formulario inválido', 1000);
   });
+
+  it('should display "Crear Superhéroe" when not in edit mode', () => {
+    component.isEdit.set(false);
+    fixture.detectChanges();
+
+    const headerDe = fixture.debugElement.query(By.css('h1'));
+    const headerEl = headerDe.nativeElement;
+
+    expect(headerEl.textContent).toContain('Crear Superhéroe');
+  });
+
+  it('should display "Editar Superhéroe" when in edit mode', () => {
+    component.isEdit.set(true);
+    fixture.detectChanges();
+
+    const headerDe = fixture.debugElement.query(By.css('h1'));
+    const headerEl = headerDe.nativeElement;
+
+    expect(headerEl.textContent).toContain('Editar Superhéroe');
+  });
+
 
 });

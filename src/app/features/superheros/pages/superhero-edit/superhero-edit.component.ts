@@ -14,7 +14,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { superherosService } from '../../services/superheros.service';
+import { SuperherosService } from '../../services/superheros.service';
 import { SuperheroStatus } from '../../interfaces';
 import { ImagePipe } from 'src/app/shared/pipes/image.pipe';
 
@@ -41,10 +41,10 @@ import { ImagePipe } from 'src/app/shared/pipes/image.pipe';
   templateUrl: './superhero-edit.component.html',
   styleUrls: ['./superhero-edit.component.scss']
 })
-export class superheroEditComponent {
+export class SuperheroEditComponent {
 
   private fb = inject(FormBuilder);
-  private superherosSvc = inject(superherosService);
+  private superherosSvc = inject(SuperherosService);
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private snackbar = inject(MatSnackBar);

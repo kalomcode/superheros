@@ -2,12 +2,11 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Superhero } from '../interfaces';
-import { Observable, catchError, map, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class superherosService {
+export class SuperherosService {
   private readonly baseUrl: string = environment.baseUrl;
 
   private http = inject(HttpClient);

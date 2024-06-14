@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { superherosListComponent } from './superheros-list.component';
+import { SuperherosListComponent } from './superheros-list.component';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { provideHttpClient } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { Router } from '@angular/router';
 
-describe('superherosListComponent', () => {
-  let component: superherosListComponent;
-  let fixture: ComponentFixture<superherosListComponent>;
+describe('SuperherosListComponent', () => {
+  let component: SuperherosListComponent;
+  let fixture: ComponentFixture<SuperherosListComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [superherosListComponent],
+      imports: [SuperherosListComponent],
       providers: [
         provideHttpClient(),
         provideHttpClientTesting(),
@@ -22,7 +22,7 @@ describe('superherosListComponent', () => {
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(superherosListComponent);
+    fixture = TestBed.createComponent(SuperherosListComponent);
     component = fixture.componentInstance;
   });
 

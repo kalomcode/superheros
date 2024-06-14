@@ -1,10 +1,11 @@
 import { TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 
-import { superherosService } from './superheros.service';
+import { SuperherosService } from './superheros.service';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { Superhero } from '../interfaces';
 import { environment } from 'src/environments/environment';
+import { provideHttpClient } from '@angular/common/http';
 
 const listsuperherosMock: Superhero[] = [
   {
@@ -36,31 +37,29 @@ const listsuperherosMock: Superhero[] = [
   }
 ]
 
-describe('superherosService', () => {
+describe('SuperherosService', () => {
 
-  let service: superherosService;
-  let httpMock: HttpTestingController;
+  let service: SuperherosService;
+  let httpTesting: HttpTestingController;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [
-        HttpClientTestingModule
-      ],
       providers: [
-        superherosService
+        SuperherosService,
+        provideHttpClient(),
+        provideHttpClientTesting(),
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
     });
-    service = TestBed.inject(superherosService);
   });
 
   beforeEach(() => {
-    service = TestBed.inject(superherosService);
-    httpMock = TestBed.inject(HttpTestingController);
+    service = TestBed.inject(SuperherosService);
+    httpTesting = TestBed.inject(HttpTestingController);
   })
 
   afterEach(() => {
-    httpMock.verify(); // Para que no haya peticiones pendientes entre tests
+    httpTesting.verify(); // Para que no haya peticiones pendientes entre tests
   })
 
   it('should be created', () => {
@@ -70,22 +69,22 @@ describe('superherosService', () => {
 
   it('getsuperheros return a list of superheros and does a get method', () => {
     service.getsuperheros().subscribe((resp: Superhero[]) => {
-      expect(resp).toEqual(listsuperherosMock);
+      expect(resp).withContext('response').toEqual(listsuperherosMock);
     });
-    const req = httpMock.expectOne(`${ environment.baseUrl }/superheros`);
-    expect(req.request.method).toBe('GET');
+    const req = httpTesting.expectOne(`${ environment.baseUrl }/superheros`);
+    expect(req.request.method).withContext('method').toBe('GET');
     req.flush(listsuperherosMock);
   });
 
   it('getSuperheroById return a superhero with id 3 and does a get method', () => {
     const id = '3'
     service.getSuperheroById(id).subscribe((resp: Superhero) => {
-      expect(resp.id).toEqual(3);
-      expect(resp.name).toEqual('Wonder Woman');
+      expect(resp.id).withContext('id').toEqual(3);
+      expect(resp.name).withContext('name').toEqual('Wonder Woman');
     });
 
-    const req = httpMock.expectOne(`${ environment.baseUrl }/superheros/${ id }`);
-    expect(req.request.method).toBe('GET');
+    const req = httpTesting.expectOne(`${ environment.baseUrl }/superheros/${ id }`);
+    expect(req.request.method).withContext('method').toBe('GET');
     req.flush(listsuperherosMock.find(superhero => superhero.id === 3) || {});
   })
 
@@ -99,12 +98,12 @@ describe('superherosService', () => {
       imgUrl: 'https://i.blogs.es/cd20cf/1366_2000-9-/1366_2000.jpeg'
     }
     service.createSuperhero(newsuperhero).subscribe((resp: Superhero) => {
-      expect(resp.id).toEqual(4);
-      expect(resp.name).toEqual('SpiderMan');
+      expect(resp.id).withContext('id').toEqual(4);
+      expect(resp.name).withContext('name').toEqual('SpiderMan');
     });
 
-    const req = httpMock.expectOne(`${ environment.baseUrl }/superheros`);
-    expect(req.request.method).toBe('POST');
+    const req = httpTesting.expectOne(`${ environment.baseUrl }/superheros`);
+    expect(req.request.method).withContext('method').toBe('POST');
     newsuperhero.id = 4
     req.flush(newsuperhero);
   })
@@ -120,60 +119,62 @@ describe('superherosService', () => {
       imgUrl: 'https://i.blogs.es/cd20cf/1366_2000-9-/1366_2000.jpeg'
     }
     service.updateSuperhero(updatedsuperhero).subscribe((resp: Superhero) => {
-      expect(resp.id).toEqual(3);
-      expect(resp.name).toEqual('SpiderMan');
+      expect(resp.id).withContext('id').toEqual(3);
+      expect(resp.name).withContext('name').toEqual('SpiderMan');
     });
 
-    const req = httpMock.expectOne(`${ environment.baseUrl }/superheros/${ updatedsuperhero.id }`);
-    expect(req.request.method).toBe('PATCH');
+    const req = httpTesting.expectOne(`${ environment.baseUrl }/superheros/${ updatedsuperhero.id }`);
+    expect(req.request.method).withContext('method').toBe('PATCH');
     req.flush(updatedsuperhero);
   })
 
   it('deletesuperheroById return a superhero id 3 updated an does a delete method', () => {
     const id = '3';
     service.deletesuperheroById(id).subscribe((resp) => {
-      expect(resp).toBeTruthy();
+      expect(resp).withContext('response').toBeTruthy();
     });
 
-    const req = httpMock.expectOne(`${ environment.baseUrl }/superheros/${ id }`);
-    expect(req.request.method).toBe('DELETE');
+    const req = httpTesting.expectOne(`${ environment.baseUrl }/superheros/${ id }`);
+    expect(req.request.method).withContext('method').toBe('DELETE');
     req.flush(true);
   })
 
-  it('deletesuperheroById error trying to delete a superhero that does not exist', (done: DoneFn) => {
+  it('deletesuperheroById error trying to delete a superhero that does not exist', () => {
+    const emsg = 'deliberate 404 error';
     const id = '5';
     
     service.getSuperheroById(id).subscribe({
       next: () => {
-        done.fail('Se esperaba un error pero la suscripción tuvo éxito');
+        fail('should have failed with the 404 error');
       },
       error: (error) => {
-        expect(error).toBeDefined();
-        done();
+        expect(error.error).withContext('message').toEqual(emsg);
+        expect(error.status).withContext('status').toEqual(404);
+        expect(error.statusText).withContext('statusText').toEqual('Not Found');
       }
     });
 
-    const req = httpMock.expectOne(`${ environment.baseUrl }/superheros/${ id }`);
-    expect(req.request.method).toBe('GET');
-    req.error(new ProgressEvent('Error superhero no encontrado'))
+    const req = httpTesting.expectOne(`${ environment.baseUrl }/superheros/${ id }`);
+    expect(req.request.method).withContext('method').toBe('GET');
+    req.flush(emsg, { status: 404, statusText: 'Not Found' })
   });
 
-  it('deletesuperheroById error trying to delete a superhero that does not exist', (done: DoneFn) => {
+  it('deletesuperheroById network level error', () => {
+    const mockError = new ProgressEvent('network error!');
     const id = '5';
     
     service.deletesuperheroById(id).subscribe({
       next: () => {
-        done.fail('Se esperaba un error pero la suscripción tuvo éxito');
+        fail('should have failed with the network error');
       },
       error: (error) => {
-        expect(error).toBeDefined();
-        done();
+        expect(error.error).withContext('response error').toBe(mockError);
       }
     });
 
-    const req = httpMock.expectOne(`${ environment.baseUrl }/superheros/${ id }`);
-    expect(req.request.method).toBe('DELETE');
-    req.error(new ProgressEvent('Error superhero no encontrado'))
+    const req = httpTesting.expectOne(`${ environment.baseUrl }/superheros/${ id }`);
+    expect(req.request.method).withContext('method').toBe('DELETE');
+    req.error(mockError);
   });
 
 });
