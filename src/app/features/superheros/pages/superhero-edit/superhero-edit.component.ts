@@ -1,7 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { AsyncPipe, NgFor, NgIf, UpperCasePipe } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -37,6 +37,7 @@ import { ImagePipe } from 'src/app/shared/pipes/image.pipe';
     MatSelectModule,
     MatSnackBarModule,
     ReactiveFormsModule,
+    RouterModule
   ],
   templateUrl: './superhero-edit.component.html',
   styleUrls: ['./superhero-edit.component.scss']

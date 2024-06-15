@@ -1,8 +1,20 @@
-<h1>
-  {{ isEdit() ? 'Editar' : 'Crear' }}
-  Superhéroe
-  <span *ngIf="isEdit()">{{ superheroForm.get('name')?.value | uppercase }}</span>
-</h1>
+<div class="d-flex justify-content-between">
+  <h1>
+    {{ isEdit() ? 'Editar' : 'Crear' }}
+    Superhéroe
+    <span *ngIf="isEdit()">{{ superheroForm.get('name')?.value | uppercase }}</span>
+  </h1>
+
+  <button
+    class="d-none d-md-block"
+    mat-flat-button
+    color="secundary"
+    [routerLink]="['/superheros/list']"
+    >
+    <mat-icon>arrow_back</mat-icon>
+    Ir al listado
+  </button>
+</div>
 
 <mat-divider class="mb-2"></mat-divider>
 
@@ -69,21 +81,18 @@
               />
           </mat-form-field>
 
+          <div class="d-flex justify-content-end">
+            <button
+              mat-flat-button
+              color="primary"
+              type="submit"
+              >
+              <mat-icon>save</mat-icon>
+              Guardar
+            </button>
+          </div>
 
         </form>
-
-        <div class="d-flex justify-content-end">
-
-          <button
-            mat-flat-button
-            color="primary"
-            (click)="onSubmit()"
-            >
-            <mat-icon>save</mat-icon>
-            Guardar
-          </button>
-        </div>
-
       </mat-card-content>
     </mat-card>
   </div>
@@ -95,4 +104,5 @@
     </mat-card>
 
   </div>
+
 </div>

@@ -1,6 +1,6 @@
 
 # Superhéroes App
-¡Bienvenido a la aplicación Superhéroes! Esta aplicación te permite gestionar un listado de superhéroes, ver sus detalles, editarlos y crear nuevos superhéroes. Está construida utilizando la última versión LTS de Angular (16.2.14) con standalone components.
+¡Bienvenido a la aplicación Superhéroes! Esta aplicación te permite gestionar un listado de superhéroes, ver sus detalles, editarlos y crear nuevos superhéroes. Está construida utilizando la última versión LTS de Angular (17.3.11) con standalone components.
 
 ## Funcionalidades
 - Ver un listado de superhéroes
