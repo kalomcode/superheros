@@ -14,7 +14,7 @@ import { MatSort } from '@angular/material/sort';
 import { filter, switchMap } from 'rxjs';
 
 import { Superhero } from '../../interfaces/superhero.interface';
-import { superherosService } from '../../services/superheros.service';
+import { SuperherosService } from '../../services/superheros.service';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 import { DialogSuperheroDetailComponent } from '../dialog-superhero-detail/dialog-superhero-detail.component';
 import { ImagePipe } from 'src/app/shared/pipes/image.pipe';
@@ -42,7 +42,7 @@ import { AsyncPipe, TitleCasePipe } from '@angular/common';
 export class TablesuperherosComponent implements OnInit {
   
   private router = inject(Router);
-  private superherosSvc = inject(superherosService);
+  private superherosSvc = inject(SuperherosService);
   private dialog = inject(MatDialog);
   private snackbar = inject(MatSnackBar);
 

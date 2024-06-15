@@ -22,7 +22,7 @@ import { TablesuperherosComponent } from '../../components/table-superheros/tabl
   templateUrl: './superheros-list.component.html',
   styleUrls: ['./superheros-list.component.scss']
 })
-export class superherosListComponent {
+export class SuperherosListComponent {
   private router = inject(Router);
   
   search = signal('');

@@ -26,4 +26,4 @@ La aplicación superheros sigue una estructura modular con tres carpetas princip
 - **shared:** Contiene elementos compartidos entre diferentes partes de la aplicación, como pipes y componentes.
 
 ## Tests
-La aplicación superheros incluye pruebas para el _**superherosService**_, _**ImagePipe**_, y _**superheroditComponent**_ utilizando Jasmine. Estas pruebas aseguran que los componentes críticos de la aplicación funcionen según lo esperado y ayudan a mantener la calidad del código.
+La aplicación superheros incluye pruebas para el _**SuperherosService**_, _**ImagePipe**_, y _**SuperheroEditComponent**_ utilizando Jasmine. Estas pruebas aseguran que los componentes críticos de la aplicación funcionen según lo esperado y ayudan a mantener la calidad del código.
