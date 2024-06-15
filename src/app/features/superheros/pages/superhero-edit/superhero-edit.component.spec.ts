@@ -1,8 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SuperheroEditComponent } from './superhero-edit.component';
-import { provideHttpClientTesting } from '@angular/common/http/testing';
-import { provideHttpClient } from '@angular/common/http';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ActivatedRoute, Router, provideRouter } from '@angular/router';
 import { provideAnimations } from '@angular/platform-browser/animations';
@@ -11,43 +9,24 @@ import { Superhero } from '../../interfaces';
 import { of, throwError } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { By } from '@angular/platform-browser';
+import { MatSnackBarMock, SuperherosServiceMock, superheroMock } from '../../testing/mocks';
 
-const superheroMock: Superhero = {
-  "id": 1,
-  "name": "Superman",
-  "power": "Super fuerza",
-  "identity": "Clark Kent",
-  "city": "Metropolis",
-  "status": "activo",
-  "imgUrl": "https://img.asmedia.epimg.net/resizer/v2/SFEXHJ2VRBH7LKRM5KCNXCHSRU.jpg?auth=3648985309ecad46ae03879eec8ca8ad8d73c8eec577f14f1a5b6a629f33f5d2&width=1472&height=828&smart=true"
-}
-
-class MatSnackBarMock {
-  open(message: string, action: string, config: any): any {
-    return {
-      afterDismissed: () => of(true),
-      onAction: () => of(true)
-    };
-  }
-}
 
 describe('SuperheroEditComponent', () => {
   let component: SuperheroEditComponent;
   let fixture: ComponentFixture<SuperheroEditComponent>;
   let router: Router;
   let route: ActivatedRoute;
-  let superherosSvc: SuperherosService;
-  let snackbarMock: MatSnackBarMock;
+  let superherosSvcMock: SuperherosService;
+  let snackbarMock: MatSnackBar;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async() => {
+    await TestBed.configureTestingModule({
       imports: [SuperheroEditComponent],
       providers: [
-        provideHttpClient(),
-        provideHttpClientTesting(),
         provideRouter([]),
         provideAnimations(),
-        SuperherosService,
+        { provide: SuperherosService, useClass: SuperherosServiceMock},
         { provide: MatSnackBar, useClass: MatSnackBarMock }
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
@@ -61,7 +40,7 @@ describe('SuperheroEditComponent', () => {
   beforeEach(() => {
     router = TestBed.inject(Router);
     route = TestBed.inject(ActivatedRoute);
-    superherosSvc = TestBed.inject(SuperherosService);
+    superherosSvcMock = TestBed.inject(SuperherosService);
     snackbarMock = TestBed.inject(MatSnackBar);
   });
 
@@ -109,7 +88,7 @@ describe('SuperheroEditComponent', () => {
   });
 
   it('getSuperheroById should navigate to list if superhero is not found', () => {
-    const superherosSvcSpy = spyOn(superherosSvc, 'getSuperheroById').and.returnValue(of(null as any));
+    const superherosSvcSpy = spyOn(superherosSvcMock, 'getSuperheroById').and.returnValue(of(null as any));
     const routerSpy = spyOn(router, 'navigate');
 
     const id = '1';
@@ -121,7 +100,7 @@ describe('SuperheroEditComponent', () => {
   });
 
   it('getSuperheroById should reset superheroForm if superhero is not null', () => {
-    const superherosSvcSpy = spyOn(superherosSvc, 'getSuperheroById').and.returnValue(of(superheroMock));
+    const superherosSvcSpy = spyOn(superherosSvcMock, 'getSuperheroById').and.returnValue(of(superheroMock));
 
     const id = '1'
 
@@ -132,7 +111,7 @@ describe('SuperheroEditComponent', () => {
   });
 
   it('getSuperheroById should navigate to /superheros/list if an error occurs while fetching superhero', () => {
-    const superherosSvcSpy = spyOn(superherosSvc, 'getSuperheroById').and.returnValue(throwError(() => new Error('Error')));
+    const superherosSvcSpy = spyOn(superherosSvcMock, 'getSuperheroById').and.returnValue(throwError(() => new Error('Error')));
     const routerSpy = spyOn(router, 'navigate');
     const showrSnackbarErrorSpy = spyOn(component, 'showrSnackbarError');
 
@@ -158,7 +137,7 @@ describe('SuperheroEditComponent', () => {
   it('onSubmit should submit form and call updateSuperhero when isEdit is true and form is valid', () => {
     const superheroVaild = {...superheroMock};
     spyOn(router, 'navigate');
-    const superherosSvcSpy = spyOn(superherosSvc, 'updateSuperhero').and.returnValue(of(superheroVaild));
+    const superherosSvcSpy = spyOn(superherosSvcMock, 'updateSuperhero').and.returnValue(of(superheroVaild));
     component.superheroForm.setValue(superheroVaild);
     component.isEdit.set(true);
 
@@ -170,7 +149,7 @@ describe('SuperheroEditComponent', () => {
   it('onSubmit should submit form and call createSuperhero when isEdit is false and form is valid', () => {
     const superheroVaild = {...superheroMock};
     spyOn(router, 'navigate');
-    const superherosSvcSpy = spyOn(superherosSvc, 'createSuperhero').and.returnValue(of(superheroVaild));
+    const superherosSvcSpy = spyOn(superherosSvcMock, 'createSuperhero').and.returnValue(of(superheroVaild));
     component.superheroForm.setValue(superheroVaild);
     component.isEdit.set(false);
 
@@ -184,8 +163,8 @@ describe('SuperheroEditComponent', () => {
     const superheroInValid = {...superheroMock};
     superheroInValid.name = '';
     spyOn(router, 'navigate');
-    const superherosSvcUpdateSpy = spyOn(superherosSvc, 'updateSuperhero').and.returnValue(of(superheroInValid));
-    const superherosSvcCreateSpy = spyOn(superherosSvc, 'createSuperhero').and.returnValue(of(superheroInValid));
+    const superherosSvcUpdateSpy = spyOn(superherosSvcMock, 'updateSuperhero').and.returnValue(of(superheroInValid));
+    const superherosSvcCreateSpy = spyOn(superherosSvcMock, 'createSuperhero').and.returnValue(of(superheroInValid));
     const showrSnackbarErrorSpy = spyOn(component, 'showrSnackbarError');
     component.superheroForm.setValue(superheroInValid);
 
