@@ -23,3 +23,36 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     --mat-snack-bar-button-color: white;
   }
 }
+
+::view-transition-new(root) {
+  animation: enter 0.5s ease 0s 1 normal forwards;
+}
+
+::view-transition-old(root) {
+  animation: exit 1s ease 0s 1 normal forwards;
+}
+
+
+@keyframes enter {
+	from {
+    opacity: 0;
+		transform: scale(0.75);
+	}
+
+	to {
+    opacity: 1;
+		transform: scale(1);
+	}
+}
+
+@keyframes exit {
+	from {
+    opacity: 1;
+		transform: scale(1);
+	}
+
+	to {
+    opacity: 0;
+		transform: scale(0.75);
+	}
+}
